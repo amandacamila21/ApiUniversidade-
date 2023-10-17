@@ -25,7 +25,7 @@ namespace apiUniversidade.Controllers
         public ActionResult<IEnumerable<Curso>> Get()
         {
             var cursos = _context.Cursos.ToList();
-            if (cursos is null)
+            if (cursos.Count == 0)
                 return NotFound();
         
             return cursos;
