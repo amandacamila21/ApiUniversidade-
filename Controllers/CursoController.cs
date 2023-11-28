@@ -77,6 +77,7 @@ namespace apiUniversidade.Controllers
             _context.SaveChanges();
 
             return Ok(curso);
+
         }
     }
 } 
