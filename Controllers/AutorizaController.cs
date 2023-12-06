@@ -43,7 +43,7 @@ public class AutorizaController : Controller
         var key = new SymmetricSecurityKey(
             Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
 
-    //gerar a assinatura digitall do token utilizando
+    //gerar a assinatura digital do token utilizando
     // a chave privade (key) e o algoritmo HMAC SHA 256
     var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
@@ -52,8 +52,20 @@ public class AutorizaController : Controller
     var expiration = DateTime.UtcNow.AddHours(double.Parse(expiracao));
 
     JwtSecurityToken token = new JwtSecurityToken(
-        issuer: _configuration["TokenConfiguration"]
-    )
+        issuer: _configuration["TokenConfiguration:Issuer"],
+        audience: _configuration["TokenConfiguration:Audience"],
+        claims: claims,
+        expires: expiration,
+        signingCredentials: credentials
+    );
+
+    return new UsuarioToken(){
+        Authenticated = true,
+        Experation = expiration,
+        Token = new JwtSecurityTokenHandler().WriteToken(token),
+        Message = "JWT Ok."
+    };
+
     }
 
     [HttpGet]
