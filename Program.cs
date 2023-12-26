@@ -16,6 +16,7 @@ builder.Services.AddControllers();
 builder.Services.AddIdentity<IdentityUser, IdentityRole> ()
     .AddEntityFrameworkStores<ApiUniversidadeContext>()
     .AddDefaultTokenProviders();
+    
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -33,6 +34,14 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                         Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])
                     )
             });
+
+builder.Services.AddApiVersioning(options =>
+{
+    options.AssumeDefaultVersionWhenUnspecified = true;
+    options.DefaultApiVersion = new Microsoft.AspNetCore.Mvc.ApiVersion(1,0);
+    options.ReportApiVersions = true;
+});
+
 
 var app = builder.Build();
 
