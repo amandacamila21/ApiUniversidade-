@@ -10,9 +10,10 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace apiUniversidade.Controllers
 {
-     [Authorize(AuthenticationSchemes = "Bearer")]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     [ApiController]
-    [Route("[controller]")]
+    [ApiVersion("1.0")]
+    [Route("api/{v:apiversion}/disciplina")]
     public class DisciplinaController  : ControllerBase
     {
         private readonly ILogger<DisciplinaController> _logger; 
